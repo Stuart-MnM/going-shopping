@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Previous Lists</title>
+
+    <style>
+        :root {
+            --background: #f3f4f6;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --accent: #4f7c6b;
+            --danger: #a85b5b;
+            --danger-light: #f8eeee;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 16px 40px;
+            font-family: Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .page {
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin: 10px 0 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .intro {
+            text-align: center;
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .trip {
+            background: var(--card);
+            border-radius: 18px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .trip summary {
+            padding: 18px;
+            font-size: 19px;
+            font-weight: 700;
+            cursor: pointer;
+            list-style-position: inside;
+        }
+
+        .trip summary::marker {
+            color: var(--accent);
+        }
+
+        .trip-meta {
+            padding: 0 20px 14px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .items {
+            padding: 0 20px 8px;
+        }
+
+        .item {
+            padding: 11px 0;
+            font-size: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .timing {
+            margin-top: 6px;
+            padding: 12px 16px;
+            background: #edf4ef;
+            border-radius: 12px;
+            color: var(--text);
+        }
+
+        .timing-label {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+        .timing-value {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .remove-trip {
+            padding: 8px 20px 18px;
+        }
+
+        .remove-trip button {
+            padding: 10px 14px;
+            border: 1px solid #ead5d5;
+            border-radius: 10px;
+            background: var(--danger-light);
+            color: var(--danger);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .empty-card {
+            background: var(--card);
+            border-radius: 18px;
+            padding: 24px 20px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 17px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 17px;
+            margin-top: 20px;
+            border-radius: 16px;
+            background: var(--card);
+            color: var(--text);
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+	 .export-button {
+    	 display: block;
+    	 width: 100%;
+    	 padding: 17px;
+   	 margin-top: 20px;
+   	 border-radius: 16px;
+   	 background: var(--accent);
+   	 color: white;
+   	 text-align: center;
+   	 text-decoration: none;
+   	 font-size: 18px;
+   	 font-weight: 700;
+   	 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+	}
+
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>📋 Previous Lists</h1>
+
+    <div class="intro">
+        Your completed shopping trips
+    </div>
+
+
+    {% if shopping_history %}
+
+        {% for trip in shopping_history %}
+
+            <details class="trip">
+
+                <summary>
+                    {{ trip["date"] }}
+                </summary>
+
+
+                {% if trip.get("overall_time") %}
+
+                    <div class="trip-meta">
+
+                        <div class="timing">
+
+                            <div class="timing-label">
+                                Overall trip time
+                            </div>
+
+                            <div class="timing-value">
+                                ⏱️ {{ trip["overall_time"] }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="items">
+
+                    {% for item in trip["items"] %}
+
+                        <div class="item">
+                            {{ item }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="remove-trip">
+
+                    <form
+                        action="{{ url_for('remove_previous_list', index=loop.index0) }}"
+                        method="post"
+                        onsubmit="return confirm('Are you sure you want to delete this previous shopping list? This cannot be undone.');"
+                    >
+
+                        <button type="submit">
+                            🗑️ REMOVE THIS LIST
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </details>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <div class="empty-card">
+            No previous shopping lists yet.
+        </div>
+
+    {% endif %}
+
+<a href="/export.xlsx" class="export-button" id="exportHistoryButton">
+    📊 EXPORT TO EXCEL
+</a>
+
+{% if shopping_history %}
+
+    <form
+        action="/previous-lists/clear"
+        method="post"
+        onsubmit="return confirm('Delete ALL previous shopping lists? This cannot be undone.');"
+        style="margin-top: 10px;"
+    >
+
+        <button type="submit" class="export-button" style="background: var(--danger); color: white; border: none; font-family: inherit; cursor: pointer;">
+            🗑️ DELETE ALL PREVIOUS LISTS
+        </button>
+
+    </form>
+
+{% endif %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const historyKey = "goingShoppingLocalHistory";
+    let history = [];
+
+    try {
+        history = JSON.parse(
+            localStorage.getItem(historyKey) || "[]"
+        );
+    } catch (error) {
+        history = [];
+    }
+
+    if (!history.length) {
+        return;
+    }
+
+    const page = document.querySelector(".page");
+    const intro = page.querySelector(".intro");
+
+    if (!page || !intro) {
+        return;
+    }
+
+    history.sort(function (a, b) {
+
+        const timeA = new Date(a.started_at || 0).getTime();
+        const timeB = new Date(b.started_at || 0).getTime();
+
+        return timeB - timeA;
+    });
+
+    const localHeading = document.createElement("div");
+
+    localHeading.style.marginBottom = "16px";
+    localHeading.style.fontWeight = "700";
+    localHeading.textContent = "Completed on this device";
+
+    intro.insertAdjacentElement(
+        "afterend",
+        localHeading
+    );
+
+    history.forEach(function (trip) {
+
+        const details = document.createElement("details");
+        details.className = "trip";
+
+        const summary = document.createElement("summary");
+        summary.textContent = trip.date || "Completed trip";
+
+        details.appendChild(summary);
+
+        if (trip.overall_time) {
+
+            const meta = document.createElement("div");
+            meta.className = "trip-meta";
+
+            const timing = document.createElement("div");
+            timing.className = "timing";
+
+            const label = document.createElement("div");
+            label.className = "timing-label";
+            label.textContent = "Overall trip time";
+
+            const value = document.createElement("div");
+            value.className = "timing-value";
+            value.textContent = trip.overall_time;
+
+            timing.appendChild(label);
+            timing.appendChild(value);
+            meta.appendChild(timing);
+            details.appendChild(meta);
+        }
+
+        const items = document.createElement("div");
+        items.className = "items";
+
+        (trip.items || []).forEach(function (item) {
+
+            const row = document.createElement("div");
+            row.className = "item";
+            row.textContent = item;
+
+            items.appendChild(row);
+        });
+
+details.appendChild(items);
+
+const removeTrip = document.createElement("div");
+removeTrip.className = "remove-trip";
+
+const removeButton = document.createElement("button");
+removeButton.type = "button";
+removeButton.textContent = "🗑️ REMOVE THIS LIST";
+
+removeButton.addEventListener("click", function () {
+
+    const confirmed = window.confirm(
+        "Are you sure you want to delete this previous shopping list? This cannot be undone."
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const currentHistory = JSON.parse(
+        localStorage.getItem(historyKey) || "[]"
+    );
+
+    const tripIndex = currentHistory.findIndex(function (savedTrip) {
+        return (
+            savedTrip.started_at === trip.started_at &&
+            savedTrip.stopped_at === trip.stopped_at
+        );
+    });
+
+    if (tripIndex !== -1) {
+        currentHistory.splice(tripIndex, 1);
+
+        localStorage.setItem(
+            historyKey,
+            JSON.stringify(currentHistory)
+        );
+    }
+
+    window.location.reload();
+});
+
+removeTrip.appendChild(removeButton);
+details.appendChild(removeTrip);
+
+page.appendChild(details);
+    });
+
+});
+</script>
+    <a href="/" class="back-button">
+        ← BACK TO HOME
+    </a>
+
+</div>
+
+<script src="{{ url_for('static', filename='app-offline.js') }}"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        registrations.forEach(function (registration) {
+            registration.unregister();
+        });
+    });
+
+    if ("caches" in window) {
+        caches.keys().then(function (cacheNames) {
+            cacheNames.forEach(function (cacheName) {
+                caches.delete(cacheName);
+            });
+        });
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Personal shopping data - this is your family's actual data, not
+# part of the app itself. The app creates sensible empty defaults
+# automatically if these files don't exist, so they don't need to
+# be tracked or shared.
+usual_shop.json
+today_list.json
+checked_items.json
+shopping_history.json
+shopping_history-before-test.json
+
+# HTTPS certificate + private key for your home network.
+# A private key should never go in a public repository.
+*.pem
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Old/unused
+trip_state.json

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add / Change List</title>
+
+    <style>
+        :root {
+            --background: #f3f4f6;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --accent: #4f7c6b;
+            --danger: #a85b5b;
+            --danger-light: #f8eeee;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 16px 40px;
+            font-family: Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .page {
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin: 10px 0 24px;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 23px;
+            margin: 0 0 16px;
+        }
+
+        .form-box,
+        .category {
+            background: var(--card);
+            border-radius: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-box {
+            padding: 18px;
+            margin-bottom: 22px;
+        }
+
+        .intro {
+            color: var(--muted);
+            font-size: 15px;
+            margin: -6px 0 14px;
+        }
+
+        input,
+        select {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 15px;
+            margin-bottom: 10px;
+            font-size: 17px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            color: var(--text);
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .main-button {
+            width: 100%;
+            padding: 17px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            background: var(--accent);
+            color: white;
+        }
+
+        .category {
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+
+        .category summary {
+            padding: 18px;
+            font-size: 19px;
+            font-weight: bold;
+            cursor: pointer;
+            list-style-position: inside;
+        }
+
+        .items {
+            padding: 0 18px 8px;
+        }
+
+        .item {
+            padding: 13px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .action-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .change-details {
+            flex: 1;
+        }
+
+.change-details summary {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: #f3f4f6;
+    color: #1f2937;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    list-style: none;
+    transition: background 0.15s ease;
+}
+
+.change-details summary:hover {
+    background: #e9eeeb;
+}
+
+        .change-details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .change-form {
+            padding-top: 10px;
+        }
+
+        .remove-form {
+            flex: 0 0 auto;
+        }
+
+.remove-button {
+    padding: 8px 12px;
+    margin: 0;
+    border: 1px solid #ead5d5;
+    border-radius: 10px;
+    background: var(--danger-light);
+    color: var(--danger);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.remove-button:hover {
+    background: #f3dddd;
+}
+
+        .save-button {
+            width: auto;
+            padding: 8px 12px;
+            margin: 0 5px 10px 0;
+            font-size: 14px;
+            border: none;
+            border-radius: 10px;
+            background: var(--accent);
+            color: white;
+            cursor: pointer;
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 17px;
+            margin-top: 18px;
+            border-radius: 16px;
+            background: var(--card);
+            color: var(--text);
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>🛠️ Add / Change List</h1>
+
+
+    <!-- Add Something New -->
+
+    <div class="form-box">
+
+        <h2>Add Something New</h2>
+
+        <p class="intro">
+            Add an item to an existing category, or create a new category.
+        </p>
+
+        <form action="/manage-shop/add" method="post">
+
+            <input
+                type="text"
+                name="item"
+                placeholder="New item"
+                autocomplete="off"
+                required
+            >
+
+            <select
+                name="category"
+                id="category"
+                onchange="showNewCategory()"
+            >
+                <option value="">
+                    Choose an existing category
+                </option>
+
+                {% for category in usual_shop %}
+
+                    <option value="{{ category }}">
+                        {{ category }}
+                    </option>
+
+                {% endfor %}
+
+                <option value="__new__">
+                    ➕ Create a new category
+                </option>
+
+            </select>
+
+
+            <input
+                type="text"
+                name="new_category"
+                id="new_category"
+                placeholder="New category name"
+                autocomplete="off"
+                style="display: none;"
+            >
+
+
+            <button type="submit" class="main-button">
+                ➕ ADD TO USUAL SHOP
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Our Usual Shop -->
+
+    <h2>Our Usual Shop</h2>
+
+    <p class="intro">
+        Change an item, move it to another category, or remove it.
+    </p>
+
+
+    {% for category, items in usual_shop.items() %}
+
+        <details class="category">
+
+            <summary>
+                {{ category }}
+            </summary>
+
+
+            <div class="items">
+
+                {% for item in items %}
+
+                    <div class="item">
+
+                        <div class="item-name">
+                            {{ item }}
+                        </div>
+
+
+                        <div class="action-row">
+
+                            <!-- Change -->
+
+                            <details class="change-details">
+
+                                <summary>
+                                    ✏️ CHANGE
+                                </summary>
+
+
+                                <div class="change-form">
+
+                                    <form action="/manage-shop/change" method="post">
+
+                                        <input
+                                            type="hidden"
+                                            name="old_item"
+                                            value="{{ item }}"
+                                        >
+
+                                        <input
+                                            type="hidden"
+                                            name="old_category"
+                                            value="{{ category }}"
+                                        >
+
+
+                                        <input
+                                            type="text"
+                                            name="new_item"
+                                            value="{{ item }}"
+                                            autocomplete="off"
+                                        >
+
+
+<select
+    name="new_category"
+    class="change-category"
+    onchange="showChangeNewCategory(this)"
+>
+
+    {% for category_name in usual_shop %}
+
+        <option
+            value="{{ category_name }}"
+            {% if category_name == category %}selected{% endif %}
+        >
+            {{ category_name }}
+        </option>
+
+    {% endfor %}
+
+    <option value="__new__">
+        ➕ Create a new category
+    </option>
+
+</select>
+
+<input
+    type="text"
+    name="new_category_name"
+    class="change-new-category"
+    placeholder="New category name"
+    autocomplete="off"
+    style="display: none;"
+>
+
+
+                                        <button
+                                            type="submit"
+                                            class="save-button"
+                                        >
+                                            SAVE CHANGE
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </details>
+
+
+                            <!-- Remove -->
+
+                            <form
+                                action="/manage-shop/remove"
+                                method="post"
+                                class="remove-form"
+                                onsubmit="return confirm('Are you sure you want to remove this item from the Usual Shop?');"
+                            >
+
+                                <input
+                                    type="hidden"
+                                    name="item"
+                                    value="{{ item }}"
+                                >
+
+                                <input
+                                    type="hidden"
+                                    name="category"
+                                    value="{{ category }}"
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="remove-button"
+                                >
+                                    🗑️ REMOVE
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </details>
+
+    {% endfor %}
+
+
+    <a href="/" class="back-button">
+        ← BACK TO HOME
+    </a>
+
+</div>
+
+
+<script>
+function showNewCategory() {
+
+    const category = document.getElementById("category").value;
+    const newCategory = document.getElementById("new_category");
+
+    if (category === "__new__") {
+
+        newCategory.style.display = "block";
+        newCategory.required = true;
+
+    } else {
+
+        newCategory.style.display = "none";
+        newCategory.required = false;
+        newCategory.value = "";
+
+    }
+}
+
+
+function showChangeNewCategory(selectElement) {
+
+    const form = selectElement.closest(".change-form");
+    const newCategoryInput = form.querySelector(".change-new-category");
+
+    if (selectElement.value === "__new__") {
+
+        newCategoryInput.style.display = "block";
+        newCategoryInput.required = true;
+
+    } else {
+
+        newCategoryInput.style.display = "none";
+        newCategoryInput.required = false;
+        newCategoryInput.value = "";
+
+    }
+}
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        registrations.forEach(function (registration) {
+            registration.unregister();
+        });
+    });
+
+    if ("caches" in window) {
+        caches.keys().then(function (cacheNames) {
+            cacheNames.forEach(function (cacheName) {
+                caches.delete(cacheName);
+            });
+        });
+    }
+}
+</script>
+
+</body>
+</html>
