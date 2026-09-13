@@ -214,7 +214,7 @@ function renderHome() {
 
     // Hide/show top buttons depending on trip state
     const topButtons = document.querySelectorAll("#screen-home > .main-button, #screen-home > .card");
-    topButtons.forEach(el => { if (el.id !== "startTripButton") el.style.display = trip ? "none" : ""; });
+    topButtons.forEach(el => { if (el.id !== "startTripButton" && el.id !== "homeListCard") el.style.display = trip ? "none" : ""; });
 
     startBtn.style.display = (todayList.length && !trip) ? "block" : "none";
 
