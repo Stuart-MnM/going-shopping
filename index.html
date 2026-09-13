@@ -154,12 +154,16 @@ input:focus, select:focus { outline: none; border-color: var(--accent); }
    ============================================================ */
 
 const DEFAULT_USUAL_SHOP = {
-    "Fridge / Veg": ["Toms", "Cuc", "Onions", "Pots", "Beetroots", "Celery", "Cheese"],
-    "Freezer": ["Breads / rolls", "Meats", "Chips", "Ice cream"],
-    "Cleaning Products": ["Floor cleaner", "Bleach", "Bin bags", "Lenor", "Wash powder", "Wash up liquid"],
-    "Bathroom Products": ["Toothpaste", "Loo roll"],
-    "Dry Goods": ["Breads", "Cereals", "Carton milk", "Oat milk"],
-    "Tinned Products": ["Beans", "Soup", "Tea bags", "Instant coffee"]
+    "Fridge": ["Beetroot", "Celery", "Cheese", "Cucumbers", "Tomatoes", "Onions", "Oat Milk", "Carton Milk", "Potatoes", "Fete Cheese", "Pate", "Fruit Yoghurts", "Plain Greek Yoghurt"],
+    "Freezer": ["Breads / Rolls", "Meats", "Chips", "Ice Cream"],
+    "Vegetables": ["Carrots", "Leeks", "Celery", "Onions", "Lettuce", "Avocados", "Garlic", "Red Peppers", "Green Peppers", "Cauliflower", "Broccoli"],
+    "Fresh Fruit": ["Grapes", "Melon", "Peaches", "Kiwi", "Apples", "Bananas"],
+    "Cleaning Products": ["Floor Cleaner", "Bleach", "Bin Bags", "Lenor", "Washing Powder", "Washing up Liquid", "Dishwasher Tablets"],
+    "Bathroom Products": ["Toothpaste", "Toothbrushes", "Cleaning Solution", "Deodorant", "Face Cream", "Shampoo", "Conditioner", "Shower Gel", "Toilet T Bags", "Wet Wipes", "Loo roll"],
+    "Dry Goods": ["Breads", "Cereals", "Flour", "Sugar", "Biscuits", "Crackers", "Breakfast Cakes", "Nuts"],
+    "Tinned Products": ["Beans", "Soup", "Tea bags", "Instant Coffee", "Coconut Milk", "Tomatoes Whole", "Tuna", "Fruit"],
+    "Outside Areas": ["Hose Pipe", "Pool Tabs"],
+    "Office Products": ["A4 Paper", "Staples"]
 };
 
 function load(key, fallback) {
