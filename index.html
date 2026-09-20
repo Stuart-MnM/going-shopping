@@ -89,7 +89,11 @@ input:focus, select:focus { outline: none; border-color: var(--accent); }
         <h2>➕ Add something extra</h2>
         <input type="text" id="extraItemInput" placeholder="What do we need?" autocomplete="off">
         <select id="extraItemCategory"></select>
-        <button class="main-button primary" onclick="addExtraItem()">➕ ADD ITEM</button>
+        <div style="display:flex; gap:10px;">
+            <button class="main-button primary" style="flex:1; margin:0;" onclick="addExtraItem()">➕ ADD ITEM</button>
+            <button class="main-button" id="micButton" style="flex:0 0 62px; margin:0; padding:18px 0; font-size:22px;" onclick="toggleVoiceInput()" title="Say your items">🎤</button>
+        </div>
+        <div id="voiceStatus" class="mode-title" style="margin:10px 0 0; display:none;"></div>
     </div>
 
     <button class="main-button" onclick="showScreen('previous-lists')">
@@ -162,7 +166,7 @@ const DEFAULT_USUAL_SHOP = {
     "Bathroom Products": ["Toothpaste", "Toothbrushes", "Cleaning Solution", "Deodorant", "Face Cream", "Shampoo", "Conditioner", "Shower Gel", "Toilet T Bags", "Wet Wipes", "Loo roll"],
     "Dry Goods": ["Breads", "Cereals", "Flour", "Sugar", "Biscuits", "Crackers", "Breakfast Cakes", "Nuts"],
     "Tinned Products": ["Beans", "Soup", "Tea bags", "Instant Coffee", "Coconut Milk", "Tomatoes Whole", "Tuna", "Fruit"],
-    "Outside Areas": ["Hose Pipe", "Pool Tabs","Wood Preserve"],
+    "Outside Areas": ["Hose Pipe", "Pool Tabs"],
     "Office Products": ["A4 Paper", "Staples"]
 };
 
@@ -341,6 +345,91 @@ function addExtraItem() {
     }
     input.value = "";
     renderHome();
+}
+
+/* ============================================================
+   VOICE INPUT
+   ============================================================ */
+
+let recognition = null;
+let isListening = false;
+
+function setupRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return null;
+    const r = new SpeechRecognition();
+    r.lang = "en-GB";
+    r.continuous = false;
+    r.interimResults = false;
+    r.maxAlternatives = 1;
+    return r;
+}
+
+function toggleVoiceInput() {
+    if (isListening) {
+        if (recognition) recognition.stop();
+        return;
+    }
+
+    if (!recognition) recognition = setupRecognition();
+    if (!recognition) {
+        alert("Sorry, voice input isn't supported in this browser. Try Chrome or Safari.");
+        return;
+    }
+
+    const micBtn = document.getElementById("micButton");
+    const status = document.getElementById("voiceStatus");
+
+    recognition.onstart = () => {
+        isListening = true;
+        micBtn.textContent = "🔴";
+        status.style.display = "block";
+        status.textContent = "Listening… say your items";
+    };
+
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        const added = addVoiceItems(transcript);
+        status.textContent = added.length
+            ? `Added: ${added.join(", ")}`
+            : `Heard "${transcript}" but couldn't find an item.`;
+    };
+
+    recognition.onerror = () => {
+        status.textContent = "Didn't catch that — try again.";
+    };
+
+    recognition.onend = () => {
+        isListening = false;
+        micBtn.textContent = "🎤";
+        setTimeout(() => { status.style.display = "none"; }, 4000);
+    };
+
+    recognition.start();
+}
+
+function splitVoiceTranscript(transcript) {
+    return transcript
+        .split(/,|\band\b|\balso\b|\bplus\b|\bas well as\b/i)
+        .map(s => s.trim())
+        .filter(Boolean)
+        .map(s => s.charAt(0).toUpperCase() + s.slice(1));
+}
+
+function addVoiceItems(transcript) {
+    const items = splitVoiceTranscript(transcript);
+    const added = [];
+    items.forEach(item => {
+        if (!todayList.includes(item)) {
+            todayList.push(item);
+            added.push(item);
+        }
+    });
+    if (added.length) {
+        saveTodayList();
+        renderHome();
+    }
+    return added;
 }
 
 function startTrip() {
