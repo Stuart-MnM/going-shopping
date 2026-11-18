@@ -3,707 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Going Shopping</title>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Shopping">
 <meta name="theme-color" content="#4f7c6b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Going Shopping">
+<title>Going Shopping</title>
 <style>
-:root {
-    --background: #f3f4f6;
-    --card: #ffffff;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-    --accent: #4f7c6b;
-    --danger: #a85b5b;
-    --danger-light: #f8eeee;
-}
-* { box-sizing: border-box; }
-body {
-    margin: 0;
-    padding: 20px 16px 40px;
-    font-family: Arial, sans-serif;
-    background: var(--background);
-    color: var(--text);
-}
-.page { max-width: 620px; margin: 0 auto; }
-h1 { text-align: center; font-size: 32px; margin: 10px 0 24px; letter-spacing: -0.5px; }
-h2 { font-size: 22px; margin: 0 0 14px; }
-.card { background: var(--card); border-radius: 18px; padding: 18px; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-.main-button {
-    display: block; width: 100%; padding: 18px 16px; margin: 10px 0; border: none;
-    border-radius: 16px; background: var(--card); color: var(--text); text-align: center;
-    text-decoration: none; font-size: 19px; font-weight: 700; cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04); font-family: inherit;
-}
-.main-button small { display: block; margin-top: 5px; color: var(--muted); font-size: 14px; font-weight: 400; }
-.main-button.primary { background: var(--accent); color: white; }
-.main-button.primary small { color: rgba(255,255,255,0.9); }
-.main-button.stop { background: var(--danger); color: white; }
-.main-button.stop small { color: rgba(255,255,255,0.9); }
-.main-button.danger { background: var(--danger); color: white; }
-input, select {
-    display: block; width: 100%; padding: 15px; margin-bottom: 10px; font-size: 17px;
-    border: 2px solid var(--border); border-radius: 12px; background: white; color: var(--text);
-}
-input:focus, select:focus { outline: none; border-color: var(--accent); }
-.item { display: flex; align-items: center; gap: 10px; padding: 13px 0; border-top: 1px solid var(--border); font-size: 18px; }
-.item label { display: flex; align-items: center; flex: 1; min-width: 0; cursor: pointer; }
-.item input[type=checkbox] { flex: 0 0 auto; width: 24px; height: 24px; margin: 0 10px 0 0; accent-color: var(--accent); cursor: pointer; }
-.remove-button { flex: 0 0 auto; padding: 8px 10px; border: 1px solid #ead5d5; border-radius: 10px; background: var(--danger-light); color: var(--danger); font-size: 13px; font-weight: 700; cursor: pointer; }
-.checked-item { color: var(--muted); text-decoration: line-through; }
-.empty-message { color: var(--muted); text-align: center; padding: 8px 0 2px; font-size: 16px; }
-.back-button { display: block; width: 100%; padding: 17px; margin-top: 16px; border-radius: 16px; background: var(--card); color: var(--text); text-align: center; text-decoration: none; font-size: 18px; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: none; cursor: pointer; font-family: inherit; }
-.category { background: var(--card); border-radius: 18px; margin-bottom: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-.category summary { padding: 18px; font-size: 20px; font-weight: 700; cursor: pointer; }
-.category summary::marker { color: var(--accent); }
-.items-inner { padding: 0 18px 8px; }
-.selected-item { background: #e2eee6; border-left: 4px solid var(--accent); border-radius: 10px; padding: 8px 10px 8px 8px; margin: -8px -10px; }
-.timing-card { background: #edf4ef; border-radius: 16px; padding: 15px 16px; margin: 16px 0; text-align: center; }
-.timing-label { color: var(--muted); font-size: 14px; margin-bottom: 4px; }
-.timing-value { font-size: 19px; font-weight: 700; }
-.list-heading { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
-.list-count { color: var(--muted); font-size: 14px; white-space: nowrap; }
-.mode-title { text-align: center; color: var(--muted); font-size: 15px; margin: -10px 0 18px; }
-.trip-summary { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-.trip-summary .date { font-weight: 700; font-size: 17px; }
-.trip-summary .meta { color: var(--muted); font-size: 14px; margin: 4px 0 8px; }
-.hidden { display: none !important; }
-.screen { display: none; }
-.screen.active { display: block; }
+:root{--bg:#f3f5f4;--card:#fff;--ink:#202a26;--muted:#68746e;--line:#e2e8e4;--green:#477a64;--green-light:#e8f1eb;--red:#a65353;--red-light:#faeeee}
+*{box-sizing:border-box}body{margin:0;padding:18px 15px 40px;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}.page{max-width:620px;margin:auto}.screen{display:none}.screen.active{display:block}h1{text-align:center;font-size:30px;margin:10px 0 8px}h2{font-size:21px;margin:0 0 12px}.intro{text-align:center;color:var(--muted);margin:0 0 20px;font-size:15px}.card{background:var(--card);border-radius:17px;padding:17px;margin:14px 0;box-shadow:0 2px 9px #00000008}.main-button,.back-button{display:block;width:100%;border:0;border-radius:15px;padding:17px 15px;margin:10px 0;background:var(--card);color:var(--ink);font-size:18px;font-weight:700;text-align:center;cursor:pointer;box-shadow:0 2px 8px #00000008;font-family:inherit}.main-button small{display:block;margin-top:5px;font-size:14px;font-weight:400;color:var(--muted)}.primary{background:var(--green);color:white}.primary small{color:#ffffffdf}.stop,.danger{background:var(--red);color:white}.back-button{margin-top:18px}input[type=text],input[type=file]{display:block;width:100%;padding:14px;margin:8px 0 10px;border:2px solid var(--line);border-radius:11px;background:white;color:var(--ink);font-size:17px}input:focus{outline:2px solid var(--green);outline-offset:1px}.add-row{display:flex;gap:9px;align-items:stretch}.add-row input{flex:1;min-width:0}.add-row button{flex:0 0 64px;margin:8px 0 10px;padding:8px;border:0;border-radius:11px;background:var(--green-light);font-size:23px;cursor:pointer}.item{display:flex;align-items:center;gap:10px;padding:12px 2px;border-top:1px solid var(--line);font-size:18px}.item label{display:flex;align-items:center;gap:11px;flex:1;min-width:0;cursor:pointer}.item input[type=checkbox]{width:23px;height:23px;flex:0 0 auto;accent-color:var(--green);margin:0}.item-name{overflow-wrap:anywhere}.checked{color:var(--muted);text-decoration:line-through}.remove{border:1px solid #ead4d4;background:var(--red-light);color:var(--red);border-radius:9px;padding:8px 10px;font-size:12px;font-weight:bold;cursor:pointer}.muted{color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:14px 4px}.list-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.count{font-size:14px;color:var(--muted);white-space:nowrap}.status{font-size:14px;color:var(--muted);text-align:center;margin:5px 0 0;min-height:18px}.timing{background:var(--green-light);border-radius:13px;text-align:center;padding:14px;margin:12px 0}.trip-card,.history-card{background:white;border-radius:14px;padding:15px;margin:10px 0;box-shadow:0 2px 8px #00000008}.history-date{font-weight:bold;font-size:17px}.history-meta{color:var(--muted);font-size:14px;margin:5px 0 8px}.small-note{font-size:13px;line-height:1.45;color:var(--muted)}.divider{height:1px;background:var(--line);margin:15px 0}.button-row{display:flex;gap:8px;flex-wrap:wrap}.button-row button{flex:1;min-width:130px}.sub-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg);padding:4px 0 12px;margin-bottom:4px}.sub-header button{border:0;background:var(--card);color:var(--ink);border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px #00000008;font-family:inherit}.sub-header span{font-weight:700;color:var(--muted);font-size:14px}.button-grid{display:flex;gap:10px;margin:10px 0}.button-grid .main-button{flex:1;min-width:0;margin:0;font-size:16px;padding:15px 8px}.button-grid .main-button small{font-size:12px}.fold summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px}.fold summary::-webkit-details-marker{display:none}.fold summary h2{margin:0}.fold summary::after{content:"▾";font-size:20px;color:var(--muted)}.fold[open] summary::after{content:"▴"}.fold[open] summary{margin-bottom:10px}.hidden{display:none!important}button:focus-visible{outline:3px solid #9bbdaa;outline-offset:2px}
 </style>
 </head>
 <body>
-
-<!-- ============== HOME ============== -->
-<div id="screen-home" class="screen active page">
-    <h1>🛒 Going Shopping</h1>
-
-    <button class="main-button" onclick="showScreen('usual-shop')">
-        🛒 MY USUAL SHOP
-        <small>Choose items for today's list</small>
-    </button>
-
-    <div class="card">
-        <h2>➕ Add something extra</h2>
-        <input type="text" id="extraItemInput" placeholder="What do we need?" autocomplete="off">
-        <select id="extraItemCategory"></select>
-        <div style="display:flex; gap:10px;">
-            <button class="main-button primary" style="flex:1; margin:0;" onclick="addExtraItem()">➕ ADD ITEM</button>
-            <button class="main-button" id="micButton" style="flex:0 0 62px; margin:0; padding:18px 0; font-size:22px;" onclick="toggleVoiceInput()" title="Say your items">🎤</button>
-        </div>
-        <div id="voiceStatus" class="mode-title" style="margin:10px 0 0; display:none;"></div>
-    </div>
-
-    <button class="main-button" onclick="showScreen('previous-lists')">
-        📋 PREVIOUS LISTS
-        <small>See earlier shopping trips</small>
-    </button>
-
-    <button class="main-button" onclick="showScreen('manage-shop')">
-        🛠️ ADD / CHANGE LIST
-        <small>Maintain our usual shopping items</small>
-    </button>
-
-    <button class="main-button primary" id="startTripButton" onclick="startTrip()">
-        🚗 START TRIP
-        <small>Tap when leaving home</small>
-    </button>
-
-    <div class="card" id="homeListCard"></div>
-    <div id="homeTripControls"></div>
-</div>
-
-<!-- ============== USUAL SHOP ============== -->
-<div id="screen-usual-shop" class="screen page">
-    <h1>🛒 My Usual Shop</h1>
-    <div class="mode-title">Select items for today's shopping list</div>
-    <div id="usualShopCategories"></div>
-    <button class="main-button primary" onclick="updateTodayListFromUsualShop()">➕ UPDATE TODAY'S LIST</button>
-    <button class="back-button" onclick="showScreen('home')">← BACK TO HOME</button>
-</div>
-
-<!-- ============== MANAGE SHOP ============== -->
-<div id="screen-manage-shop" class="screen page">
-    <h1>🛠️ Add / Change List</h1>
-
-    <div class="card">
-        <h2>➕ Add a new item</h2>
-        <input type="text" id="manageAddItem" placeholder="Item name" autocomplete="off">
-        <select id="manageAddCategory"></select>
-        <input type="text" id="manageAddNewCategory" placeholder="New category name" class="hidden">
-        <button class="main-button primary" onclick="manageAddItem()">➕ ADD ITEM</button>
-    </div>
-
-    <div id="manageShopCategories"></div>
-
-    <button class="back-button" onclick="showScreen('home')">← BACK TO HOME</button>
-</div>
-
-<!-- ============== PREVIOUS LISTS ============== -->
-<div id="screen-previous-lists" class="screen page">
-    <h1>📋 Previous Lists</h1>
-    <div id="previousListsContainer"></div>
-    <button class="main-button primary" onclick="exportHistoryCsv()">📊 EXPORT TO EXCEL (CSV)</button>
-    <button class="main-button danger" id="deleteAllButton" onclick="deleteAllHistory()">🗑️ DELETE ALL PREVIOUS LISTS</button>
-    <button class="back-button" onclick="showScreen('home')">← BACK TO HOME</button>
-</div>
-
+<main class="page">
+<section id="screen-home" class="screen active">
+<h1>🛒 Going Shopping</h1><p class="intro">A simple list to make shopping easier.</p>
+<div class="card"><h2>➕ Add something to today's list</h2><div class="add-row"><input id="extraInput" type="text" placeholder="What do we need?" autocomplete="off" aria-label="New shopping item"><button id="micButton" type="button" onclick="toggleVoice()" title="Add items by voice" aria-label="Add items by voice">🎤</button></div><button class="main-button primary" onclick="addExtra()">ADD ITEM</button><div id="voiceStatus" class="status" aria-live="polite"></div></div>
+<div class="button-grid"><button class="main-button" onclick="addDailyShop()">🛒 DAILY SHOP<small>Add the usual everyday items to today's list</small></button><button class="main-button" onclick="addMainShop()">🛒 MAIN SHOP<small>Add the main shopping list to today's list</small></button></div>
+<div class="card"><div class="list-heading"><h2>Today's List</h2><span id="todayCount" class="count"></span></div><div id="todayItems"></div><div class="button-grid"><button id="clearTodayButton" class="main-button danger" onclick="clearToday()">CLEAR TODAY'S LIST</button><button id="startButton" class="main-button primary" onclick="startTrip()">🚗 START SHOPPING</button></div></div>
+<div class="button-grid"><button class="main-button" onclick="showScreen('usual')">🛒 MY USUAL ITEMS<small>Choose the things you buy regularly</small></button><button class="main-button" onclick="showScreen('manage')">✏️ EDIT MY USUAL ITEMS<small>Add or remove regular items</small></button></div>
+<div class="button-grid"><button class="main-button" onclick="showScreen('history')">📋 PREVIOUS SHOPPING<small>Look back at completed shops</small></button><button class="main-button" onclick="showScreen('backup')">💾 BACK UP / RESTORE<small>Keep a safe copy of your lists</small></button></div>
+<div id="tripControls"></div>
+</section>
+<section id="screen-usual" class="screen"><div class="sub-header"><button onclick="showScreen('home')">← HOME</button><span>🛒 Going Shopping</span></div><h1>🛒 My Usual Items</h1><p class="intro">Tick the items you need today.</p><div class="card"><div id="usualItems"></div></div><button class="main-button primary" onclick="applyUsual()">ADD SELECTED TO TODAY'S LIST</button><button class="back-button" onclick="showScreen('home')">← BACK HOME</button></section>
+<section id="screen-manage" class="screen"><div class="sub-header"><button onclick="showScreen('home')">← HOME</button><span>🛒 Going Shopping</span></div><h1>✏️ Edit My Usual Items</h1><p class="intro">Keep a list of things you often buy.</p><details class="card fold"><summary><h2>🛒 Daily Shop <span id="dailyCount" class="count"></span></h2></summary><p class="small-note">These are the items added when you tap DAILY SHOP on the home screen.</p><input id="dailyInput" type="text" placeholder="Add an item to Daily Shop" autocomplete="off"><button class="main-button primary" onclick="addDailyItem()">ADD TO DAILY SHOP</button><div id="dailyItems"></div></details><details class="card fold"><summary><h2>🛒 Main Shop <span id="mainCount" class="count"></span></h2></summary><p class="small-note">These are the items added when you tap MAIN SHOP on the home screen.</p><input id="mainInput" type="text" placeholder="Add an item to Main Shop" autocomplete="off"><button class="main-button primary" onclick="addMainItem()">ADD TO MAIN SHOP</button><div id="mainItems"></div></details><details class="card fold"><summary><h2>My Usual Items <span id="usualCount" class="count"></span></h2></summary><input id="usualInput" type="text" placeholder="Item name" autocomplete="off"><button class="main-button primary" onclick="addUsual()">ADD TO MY USUAL ITEMS</button><div id="manageItems"></div></details><button class="back-button" onclick="showScreen('home')">← BACK HOME</button></section>
+<section id="screen-history" class="screen"><div class="sub-header"><button onclick="showScreen('home')">← HOME</button><span>🛒 Going Shopping</span></div><h1>📋 Previous Shopping</h1><div id="historyItems"></div><button class="main-button primary" onclick="exportCsv()">📊 EXPORT HISTORY (CSV)</button><button class="main-button danger" id="deleteHistoryButton" onclick="deleteHistory()">DELETE ALL HISTORY</button><button class="back-button" onclick="showScreen('home')">← BACK HOME</button></section>
+<section id="screen-backup" class="screen"><div class="sub-header"><button onclick="showScreen('home')">← HOME</button><span>🛒 Going Shopping</span></div><h1>💾 Back Up My Lists</h1><p class="intro">Save a copy of your shopping data, or restore one later.</p><div class="card"><h2>Save a backup</h2><p class="small-note">This downloads a backup file containing your usual items, today's list and shopping history. Keep it somewhere safe.</p><button class="main-button primary" onclick="downloadBackup()">DOWNLOAD BACKUP</button></div><div class="card"><h2>Restore a backup</h2><p class="small-note">Restoring replaces the lists currently on this device. If there is anything you want to keep, download a backup first.</p><input id="backupFile" type="file" accept=".json,application/json"><button class="main-button" onclick="restoreBackup()">RESTORE FROM FILE</button></div><div class="card"><p class="small-note"><strong>Important:</strong> Your lists are stored in this browser on this device. They are not automatically shared or synchronised with another phone. Clearing browser data may erase them. Back up regularly, especially before changing phones.</p></div><button class="back-button" onclick="showScreen('home')">← BACK HOME</button></section>
+</main>
 <script>
-/* ============================================================
-   DATA - everything lives in this browser's localStorage.
-   There is no server. Nothing needs a connection, ever, after
-   this page has loaded once.
-   ============================================================ */
+'use strict';
+const KEYS={data:'gsV3Data'};
+const DEFAULT_DAILY=["Butter","Coffee","Eggs","Milk","Sugar","Tea"];
+const DEFAULT_MAIN=["Avocados", "Bleach", "Broccoli", "Carrots", "Celery", "Conditioner", "Dark Chocolate", "Face Cream", "Floor Cleaner", "Fruit", "Grapes", "Ice Cream", "Instant Coffee", "Leeks", "Lenor", "Lettuce", "Loo Roll", "Meat", "Oat Milk", "Onions", "Peppers", "Potatoes", "Rolls", "Shampoo", "Sugar", "Tea Bags", "Tomatoes", "Toothbrushes", "Toothpaste", "Tuna", "Wash Powder", "Washing-up Liquid", "Water 8 Ltr", "Yoghurt"];
+const DEFAULT_USUAL=['Beetroot','Celery','Cheese','Cucumbers','Tomatoes','Onions','Oat Milk','Carton Milk','Potatoes','Feta Cheese','Pate','Fruit Yoghurts','Plain Greek Yoghurt','Breads / Rolls','Meats','Chips','Ice Cream','Carrots','Leeks','Lettuce','Avocados','Garlic','Red Peppers','Green Peppers','Cauliflower','Broccoli','Grapes','Melon','Peaches','Kiwi','Apples','Bananas','Floor Cleaner','Bleach','Bin Bags','Lenor','Washing Powder','Washing up Liquid','Dishwasher Tablets','Toothpaste','Toothbrushes','Cleaning Solution','Deodorant','Face Cream','Shampoo','Conditioner','Shower Gel','Toilet T Bags','Wet Wipes','Loo roll','Breads','Cereals','Flour','Sugar','Biscuits','Crackers','Breakfast Cakes','Nuts','Beans','Soup','Tea bags','Instant Coffee','Coconut Milk','Tomatoes Whole','Tuna','Fruit','Hose Pipe','Pool Tabs','A4 Paper','Staples'];
+function safeArray(v){return Array.isArray(v)?v:[]}
+function cleanItems(v){return [...new Set(safeArray(v).filter(x=>typeof x==='string'&&x.trim()).map(x=>x.trim()))]}
+function readV2(key,fallback){try{const v=JSON.parse(localStorage.getItem(key));return v===null?fallback:v}catch{return fallback}}
+function migrateOrLoad(){try{const current=localStorage.getItem(KEYS.data);if(current){const d=JSON.parse(current);if(d&&Array.isArray(d.usual)&&Array.isArray(d.today)&&Array.isArray(d.history))return normalize(d)}}catch(e){}
+ const oldShop=readV2('gsUsualShop',null);const oldUsual=oldShop&&typeof oldShop==='object'?Object.values(oldShop).flat():DEFAULT_USUAL;
+ return normalize({usual:oldUsual,today:readV2('gsTodayList',[]),trip:readV2('gsTrip',null),history:readV2('gsHistory',[]),daily:DEFAULT_DAILY,main:DEFAULT_MAIN})}
+function sortItems(v){return cleanItems(v).sort((a,b)=>a.localeCompare(b,'en-GB',{sensitivity:'base'}))}
+function normalize(d){return{usual:sortItems(d.usual),daily:sortItems(d.daily===undefined?DEFAULT_DAILY:d.daily),main:sortItems(d.main===undefined?DEFAULT_MAIN:d.main),today:cleanItems(d.today),trip:d.trip&&Array.isArray(d.trip.items)?{items:safeArray(d.trip.items),checked:safeArray(d.trip.checked),startedAt:d.trip.startedAt||new Date().toISOString(),stoppedAt:d.trip.stoppedAt||null}:null,history:safeArray(d.history).filter(x=>x&&Array.isArray(x.items))}}
+let data=migrateOrLoad();
+function persist(){try{localStorage.setItem(KEYS.data,JSON.stringify(data))}catch(e){alert('The browser could not save your changes. Your device may be out of storage. Please download a backup if possible.')}}
+function showScreen(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+name).classList.add('active');if(name==='home')renderHome();if(name==='usual')renderUsual();if(name==='manage')renderManage();if(name==='history')renderHistory()}
+function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n}
+function renderHome(){const area=document.getElementById('todayItems');area.replaceChildren();document.getElementById('todayCount').textContent=data.today.length?`${data.today.length} item${data.today.length===1?'':'s'}`:'';document.getElementById('startButton').classList.toggle('hidden',!!data.trip||!data.today.length);document.getElementById('clearTodayButton').classList.toggle('hidden',!!data.trip||!data.today.length);
+ if(data.trip){area.replaceChildren();renderTripList(area);document.getElementById('startButton').classList.add('hidden')}else if(!data.today.length){area.append(el('div','empty','Your shopping list is empty. Add an item above or choose from your usual items.'))}else data.today.forEach(item=>area.append(makeItemRow(item,false)));
+ const controls=document.getElementById('tripControls');controls.replaceChildren();if(data.trip){const box=el('div','trip-card');const when=el('div','timing');when.append(el('div','muted',data.trip.stoppedAt?'Shopping stopped':'Shopping started'));when.append(el('strong','',new Date(data.trip.startedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})));box.append(when);if(!data.trip.stoppedAt){const stop=el('button','main-button stop','STOP SHOPPING');stop.onclick=()=>{data.trip.stoppedAt=new Date().toISOString();persist();renderHome()};box.append(stop)}else{const done=el('button','main-button primary','FINISH AND SAVE SHOPPING');done.onclick=completeTrip;box.append(done)}controls.append(box)}}
+function makeItemRow(item,tripMode){const row=el('div','item');const label=el('label');if(tripMode){const cb=el('input');cb.type='checkbox';cb.checked=data.trip.checked.includes(item);const name=el('span','item-name'+(cb.checked?' checked':''),item);cb.onchange=()=>{if(cb.checked){if(!data.trip.checked.includes(item))data.trip.checked.push(item)}else data.trip.checked=data.trip.checked.filter(x=>x!==item);name.classList.toggle('checked',cb.checked);persist()};label.append(cb,name)}else label.append(el('span','item-name',item));row.append(label);const rm=el('button','remove','REMOVE');rm.onclick=()=>{if(tripMode){data.trip.items=data.trip.items.filter(x=>x!==item);data.trip.checked=data.trip.checked.filter(x=>x!==item)}else data.today=data.today.filter(x=>x!==item);persist();renderHome()};row.append(rm);return row}
+function renderTripList(area){const t=data.trip;area.append(el('div','muted',`${t.checked.length} of ${t.items.length} items ticked off`));t.items.forEach(item=>area.append(makeItemRow(item,true)))}
+function addExtra(){const input=document.getElementById('extraInput');const value=input.value.trim();if(!value)return;if(data.trip){alert('Shopping is already in progress. Finish this trip before starting a new list.');return}if(!data.today.includes(value))data.today.push(value);input.value='';persist();renderHome();input.focus()}
+document.getElementById('extraInput').addEventListener('keydown',e=>{if(e.key==='Enter')addExtra()});
+function renderUsual(){const area=document.getElementById('usualItems');area.replaceChildren();if(!data.usual.length){area.append(el('div','empty','You have not added any usual items yet.'));return}data.usual.forEach(item=>{const row=el('div','item');const label=el('label');const cb=el('input');cb.type='checkbox';cb.checked=data.today.includes(item);cb.dataset.item=item;label.append(cb,el('span','item-name',item));row.append(label);area.append(row)})}
+function applyUsual(){if(data.trip){alert('Finish the current shopping trip first.');return}document.querySelectorAll('#usualItems input:checked').forEach(cb=>{if(!data.today.includes(cb.dataset.item))data.today.push(cb.dataset.item)});persist();showScreen('home')}
+function addDailyShop(){if(data.trip){alert('Shopping is already in progress. Finish this trip before starting a new list.');return}data.daily.forEach(item=>{if(!data.today.some(x=>x.toLowerCase()===item.toLowerCase()))data.today.push(item)});persist();renderHome()}
+function addMainShop(){if(data.trip){alert('Shopping is already in progress. Finish this trip before starting a new list.');return}data.main.forEach(item=>{if(!data.today.some(x=>x.toLowerCase()===item.toLowerCase()))data.today.push(item)});persist();renderHome()}
+function clearToday(){if(data.trip){alert('Finish the current shopping trip before clearing the list.');return}if(!data.today.length)return;if(!confirm("Clear today’s shopping list? This will remove all items from today’s list."))return;data.today=[];persist();renderHome()}
 
-const DEFAULT_USUAL_SHOP = {
-    "Fridge": ["Beetroot", "Celery", "Cheese", "Cucumbers", "Tomatoes", "Onions", "Oat Milk", "Carton Milk", "Potatoes", "Fete Cheese", "Pate", "Fruit Yoghurts", "Plain Greek Yoghurt"],
-    "Freezer": ["Breads / Rolls", "Meats", "Chips", "Ice Cream"],
-    "Vegetables": ["Carrots", "Leeks", "Celery", "Onions", "Lettuce", "Avocados", "Garlic", "Red Peppers", "Green Peppers", "Cauliflower", "Broccoli"],
-    "Fresh Fruit": ["Grapes", "Melon", "Peaches", "Kiwi", "Apples", "Bananas"],
-    "Cleaning Products": ["Floor Cleaner", "Bleach", "Bin Bags", "Lenor", "Washing Powder", "Washing up Liquid", "Dishwasher Tablets"],
-    "Bathroom Products": ["Toothpaste", "Toothbrushes", "Cleaning Solution", "Deodorant", "Face Cream", "Shampoo", "Conditioner", "Shower Gel", "Toilet T Bags", "Wet Wipes", "Loo roll"],
-    "Dry Goods": ["Breads", "Cereals", "Flour", "Sugar", "Biscuits", "Crackers", "Breakfast Cakes", "Nuts"],
-    "Tinned Products": ["Beans", "Soup", "Tea bags", "Instant Coffee", "Coconut Milk", "Tomatoes Whole", "Tuna", "Fruit"],
-    "Outside Areas": ["Hose Pipe", "Pool Tabs"],
-    "Office Products": ["A4 Paper", "Staples"]
-};
+function addDailyItem(){const input=document.getElementById('dailyInput');const item=input.value.trim();if(!item)return;if(!data.daily.some(x=>x.toLowerCase()===item.toLowerCase()))data.daily.push(item);data.daily=sortItems(data.daily);input.value='';persist();renderManage();input.focus()}
+document.getElementById('dailyInput').addEventListener('keydown',e=>{if(e.key==='Enter')addDailyItem()});
+function addMainItem(){const input=document.getElementById('mainInput');const item=input.value.trim();if(!item)return;if(!data.main.some(x=>x.toLowerCase()===item.toLowerCase()))data.main.push(item);data.main=sortItems(data.main);input.value='';persist();renderManage();input.focus()}
+document.getElementById('mainInput').addEventListener('keydown',e=>{if(e.key==='Enter')addMainItem()});
 
-function load(key, fallback) {
-    try {
-        const raw = localStorage.getItem(key);
-        return raw === null ? fallback : JSON.parse(raw);
-    } catch (e) {
-        return fallback;
-    }
+function renderDaily(){data.daily=sortItems(data.daily);const area=document.getElementById('dailyItems');area.replaceChildren();if(!data.daily.length){area.append(el('div','empty','No Daily Shop items saved yet.'));return}data.daily.forEach(item=>{const row=el('div','item');row.append(el('span','item-name',item));const rm=el('button','remove','REMOVE');rm.onclick=()=>{if(!confirm(`Remove “${item}” from Daily Shop?`))return;data.daily=data.daily.filter(x=>x!==item);persist();renderManage()};row.append(rm);area.append(row)})}
+function addUsual(){const input=document.getElementById('usualInput');const item=input.value.trim();if(!item)return;if(!data.usual.some(x=>x.toLowerCase()===item.toLowerCase()))data.usual.push(item);data.usual=sortItems(data.usual);input.value='';persist();renderManage();input.focus()}
+document.getElementById('usualInput').addEventListener('keydown',e=>{if(e.key==='Enter')addUsual()});
+function renderManage(){
+renderDaily();
+const cnt=(id,n)=>{document.getElementById(id).textContent='('+n+' item'+(n===1?'':'s')+')'};cnt('dailyCount',data.daily.length);cnt('mainCount',data.main.length);cnt('usualCount',data.usual.length);
+const mainArea=document.getElementById('mainItems');mainArea.replaceChildren();
+if(!data.main.length){mainArea.append(el('div','empty','No Main Shop items saved yet.'))}
+else data.main.forEach(item=>{const row=el('div','item');row.append(el('span','item-name',item));const rm=el('button','remove','REMOVE');rm.onclick=()=>{if(!confirm(`Remove “${item}” from Main Shop?`))return;data.main=data.main.filter(x=>x!==item);persist();renderManage()};row.append(rm);mainArea.append(row)});
+const area=document.getElementById('manageItems');area.replaceChildren();
+if(!data.usual.length){area.append(el('div','empty','No usual items saved yet.'));return}
+data.usual.forEach(item=>{const row=el('div','item');row.append(el('span','item-name',item));const rm=el('button','remove','REMOVE');rm.onclick=()=>{if(!confirm(`Remove “${item}” from your usual items?`))return;data.usual=data.usual.filter(x=>x!==item);persist();renderManage()};row.append(rm);area.append(row)})
 }
-function save(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-}
-
-let usualShop = load("gsUsualShop", DEFAULT_USUAL_SHOP);
-let todayList = load("gsTodayList", []);
-let trip = load("gsTrip", null);
-let shoppingHistory = load("gsHistory", []);
-
-function saveUsualShop() { save("gsUsualShop", usualShop); }
-function saveTodayList() { save("gsTodayList", todayList); }
-function saveTrip() { save("gsTrip", trip); }
-function saveHistory() { save("gsHistory", shoppingHistory); }
-
-
-/* ============================================================
-   SCREEN NAVIGATION
-   ============================================================ */
-
-function showScreen(name) {
-    document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
-    document.getElementById("screen-" + name).classList.add("active");
-
-    if (name === "home") renderHome();
-    if (name === "usual-shop") renderUsualShop();
-    if (name === "manage-shop") renderManageShop();
-    if (name === "previous-lists") renderPreviousLists();
-}
-
-
-/* ============================================================
-   HOME
-   ============================================================ */
-
-function renderHome() {
-    const startBtn = document.getElementById("startTripButton");
-    const listCard = document.getElementById("homeListCard");
-    const controls = document.getElementById("homeTripControls");
-
-    document.querySelectorAll("#screen-home > .card, #screen-home > .main-button.button-like")
-        .forEach(el => {});
-
-    // Hide/show top buttons depending on trip state
-    const topButtons = document.querySelectorAll("#screen-home > .main-button, #screen-home > .card");
-    topButtons.forEach(el => { if (el.id !== "startTripButton" && el.id !== "homeListCard") el.style.display = trip ? "none" : ""; });
-
-    startBtn.style.display = (todayList.length && !trip) ? "block" : "none";
-
-    if (!trip) {
-        controls.innerHTML = "";
-        renderTodayList(listCard, false);
-        populateCategorySelect(document.getElementById("extraItemCategory"));
-        return;
-    }
-
-    // Active trip - shopping mode
-    renderTodayList(listCard, true);
-
-    controls.innerHTML = "";
-    if (!trip.stoppedAt) {
-        const timing = document.createElement("div");
-        timing.className = "timing-card";
-        timing.innerHTML = `<div class="timing-label">Trip started</div><div class="timing-value">${new Date(trip.startedAt).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}</div>`;
-        controls.appendChild(timing);
-
-        const stopBtn = document.createElement("button");
-        stopBtn.className = "main-button stop";
-        stopBtn.textContent = "🛑 STOP TRIP";
-        stopBtn.onclick = () => { trip.stoppedAt = new Date().toISOString(); saveTrip(); renderHome(); };
-        controls.appendChild(stopBtn);
-    } else {
-        const doneBtn = document.createElement("button");
-        doneBtn.className = "main-button primary";
-        doneBtn.textContent = "✅ SHOPPING COMPLETED";
-        doneBtn.onclick = completeTrip;
-        controls.appendChild(doneBtn);
-    }
-}
-
-function renderTodayList(container, tripMode) {
-    container.innerHTML = "";
-    const heading = document.createElement("div");
-    heading.className = "list-heading";
-    heading.innerHTML = `<h2>Today's List</h2>`;
-    container.appendChild(heading);
-
-    const items = tripMode ? trip.items : todayList;
-    const count = document.createElement("div");
-    count.className = "list-count";
-    count.textContent = items.length ? items.length + " item" + (items.length === 1 ? "" : "s") : "";
-    heading.appendChild(count);
-
-    if (!items.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty-message";
-        empty.textContent = "Your shopping list is empty.";
-        container.appendChild(empty);
-        return;
-    }
-
-    items.forEach(item => {
-        const row = document.createElement("div");
-        row.className = "item";
-
-        const label = document.createElement("label");
-        if (tripMode && trip.checked.includes(item)) label.classList.add("checked-item");
-
-        if (tripMode) {
-            const cb = document.createElement("input");
-            cb.type = "checkbox";
-            cb.checked = trip.checked.includes(item);
-            cb.onchange = () => {
-                if (cb.checked) { if (!trip.checked.includes(item)) trip.checked.push(item); label.classList.add("checked-item"); }
-                else { trip.checked = trip.checked.filter(i => i !== item); label.classList.remove("checked-item"); }
-                saveTrip();
-            };
-            label.appendChild(cb);
-        }
-
-        const span = document.createElement("span");
-        span.textContent = item;
-        label.appendChild(span);
-        row.appendChild(label);
-
-        const removeBtn = document.createElement("button");
-        removeBtn.className = "remove-button";
-        removeBtn.textContent = "REMOVE";
-        removeBtn.onclick = () => {
-            if (tripMode) {
-                trip.items = trip.items.filter(i => i !== item);
-                trip.checked = trip.checked.filter(i => i !== item);
-                saveTrip();
-            } else {
-                todayList = todayList.filter(i => i !== item);
-                saveTodayList();
-            }
-            renderHome();
-        };
-        row.appendChild(removeBtn);
-
-        container.appendChild(row);
-    });
-}
-
-function populateCategorySelect(select) {
-    select.innerHTML = `<option value="">Add to Today's List only</option>`;
-    Object.keys(usualShop).forEach(cat => {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = cat;
-        select.appendChild(opt);
-    });
-}
-
-function addExtraItem() {
-    const input = document.getElementById("extraItemInput");
-    const category = document.getElementById("extraItemCategory").value;
-    const item = input.value.trim();
-    if (!item) return;
-
-    if (!todayList.includes(item)) { todayList.push(item); saveTodayList(); }
-    if (category && usualShop[category] && !usualShop[category].includes(item)) {
-        usualShop[category].push(item);
-        saveUsualShop();
-    }
-    input.value = "";
-    renderHome();
-}
-
-/* ============================================================
-   VOICE INPUT
-   ============================================================ */
-
-let recognition = null;
-let isListening = false;
-
-function setupRecognition() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) return null;
-    const r = new SpeechRecognition();
-    r.lang = "en-GB";
-    r.continuous = false;
-    r.interimResults = false;
-    r.maxAlternatives = 1;
-    return r;
-}
-
-function toggleVoiceInput() {
-    if (isListening) {
-        if (recognition) recognition.stop();
-        return;
-    }
-
-    if (!recognition) recognition = setupRecognition();
-    if (!recognition) {
-        alert("Sorry, voice input isn't supported in this browser. Try Chrome or Safari.");
-        return;
-    }
-
-    const micBtn = document.getElementById("micButton");
-    const status = document.getElementById("voiceStatus");
-
-    recognition.onstart = () => {
-        isListening = true;
-        micBtn.textContent = "🔴";
-        status.style.display = "block";
-        status.textContent = "Listening… say your items";
-    };
-
-    recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        const added = addVoiceItems(transcript);
-        status.textContent = added.length
-            ? `Added: ${added.join(", ")}`
-            : `Heard "${transcript}" but couldn't find an item.`;
-    };
-
-    recognition.onerror = () => {
-        status.textContent = "Didn't catch that — try again.";
-    };
-
-    recognition.onend = () => {
-        isListening = false;
-        micBtn.textContent = "🎤";
-        setTimeout(() => { status.style.display = "none"; }, 4000);
-    };
-
-    recognition.start();
-}
-
-function splitVoiceTranscript(transcript) {
-    return transcript
-        .split(/,|\band\b|\balso\b|\bplus\b|\bas well as\b/i)
-        .map(s => s.trim())
-        .filter(Boolean)
-        .map(s => s.charAt(0).toUpperCase() + s.slice(1));
-}
-
-function addVoiceItems(transcript) {
-    const items = splitVoiceTranscript(transcript);
-    const added = [];
-    items.forEach(item => {
-        if (!todayList.includes(item)) {
-            todayList.push(item);
-            added.push(item);
-        }
-    });
-    if (added.length) {
-        saveTodayList();
-        renderHome();
-    }
-    return added;
-}
-
-function startTrip() {
-    trip = { items: todayList.slice(), checked: [], startedAt: new Date().toISOString(), stoppedAt: null };
-    saveTrip();
-    renderHome();
-}
-
-function completeTrip() {
-    const uncheckedCount = trip.items.length - trip.checked.length;
-    if (uncheckedCount > 0) {
-        const proceed = confirm(`You still have ${uncheckedCount} unchecked item${uncheckedCount === 1 ? "" : "s"}.\n\nFinish shopping without them?`);
-        if (!proceed) return;
-    }
-
-    if (trip.checked.length) {
-        shoppingHistory.unshift({
-            date: new Date().toLocaleDateString(undefined, { day: "2-digit", month: "long", year: "numeric" }),
-            items: trip.checked.slice(),
-            startedAt: trip.startedAt,
-            stoppedAt: trip.stoppedAt,
-            overallTime: formatDuration(trip.startedAt, trip.stoppedAt)
-        });
-        saveHistory();
-    }
-
-    todayList = [];
-    saveTodayList();
-    trip = null;
-    saveTrip();
-    renderHome();
-}
-
-function formatDuration(startedAt, stoppedAt) {
-    if (!startedAt || !stoppedAt) return "";
-    const ms = new Date(stoppedAt) - new Date(startedAt);
-    if (ms < 0) return "";
-    const totalSeconds = Math.floor(ms / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    if (hours) return `${hours}h ${String(minutes).padStart(2, "0")}m`;
-    if (minutes) return `${minutes}m`;
-    return `${seconds}s`;
-}
-
-
-/* ============================================================
-   USUAL SHOP
-   ============================================================ */
-
-function renderUsualShop() {
-    const container = document.getElementById("usualShopCategories");
-    container.innerHTML = "";
-
-    Object.entries(usualShop).forEach(([category, items]) => {
-        const details = document.createElement("details");
-        details.className = "category";
-
-        const summary = document.createElement("summary");
-        summary.textContent = category;
-        details.appendChild(summary);
-
-        const inner = document.createElement("div");
-        inner.className = "items-inner";
-
-        items.forEach(item => {
-            const row = document.createElement("div");
-            row.className = "item";
-            const label = document.createElement("label");
-            const selected = todayList.includes(item);
-            if (selected) label.classList.add("selected-item");
-
-            const cb = document.createElement("input");
-            cb.type = "checkbox";
-            cb.checked = selected;
-            cb.dataset.item = item;
-            cb.onchange = () => { label.classList.toggle("selected-item", cb.checked); };
-            label.appendChild(cb);
-
-            const span = document.createElement("span");
-            span.textContent = item;
-            label.appendChild(span);
-
-            row.appendChild(label);
-            inner.appendChild(row);
-        });
-
-        details.appendChild(inner);
-        container.appendChild(details);
-
-        details.addEventListener("toggle", () => {
-            if (details.open) {
-                container.querySelectorAll("details").forEach(d => { if (d !== details) d.removeAttribute("open"); });
-            }
-        });
-    });
-}
-
-function updateTodayListFromUsualShop() {
-    const selected = new Set();
-    document.querySelectorAll("#usualShopCategories input[type=checkbox]:checked").forEach(cb => selected.add(cb.dataset.item));
-
-    const usualItems = new Set(Object.values(usualShop).flat());
-    todayList = todayList.filter(i => !usualItems.has(i) || selected.has(i));
-    selected.forEach(item => { if (!todayList.includes(item)) todayList.push(item); });
-    saveTodayList();
-
-    showScreen("home");
-}
-
-
-/* ============================================================
-   MANAGE SHOP
-   ============================================================ */
-
-function renderManageShop() {
-    const categorySelect = document.getElementById("manageAddCategory");
-    categorySelect.innerHTML = "";
-    Object.keys(usualShop).forEach(cat => {
-        const opt = document.createElement("option");
-        opt.value = cat; opt.textContent = cat;
-        categorySelect.appendChild(opt);
-    });
-    const newOpt = document.createElement("option");
-    newOpt.value = "__new__"; newOpt.textContent = "+ Create a new category";
-    categorySelect.appendChild(newOpt);
-
-    categorySelect.onchange = () => {
-        document.getElementById("manageAddNewCategory").classList.toggle("hidden", categorySelect.value !== "__new__");
-    };
-
-    const container = document.getElementById("manageShopCategories");
-    container.innerHTML = "";
-
-    Object.entries(usualShop).forEach(([category, items]) => {
-        const details = document.createElement("details");
-        details.className = "category";
-        const summary = document.createElement("summary");
-        summary.textContent = category;
-        details.appendChild(summary);
-
-        const inner = document.createElement("div");
-        inner.className = "items-inner";
-
-        items.forEach(item => {
-            const row = document.createElement("div");
-            row.className = "item";
-            const span = document.createElement("span");
-            span.textContent = item;
-            span.style.flex = "1";
-            row.appendChild(span);
-
-            const removeBtn = document.createElement("button");
-            removeBtn.className = "remove-button";
-            removeBtn.textContent = "REMOVE";
-            removeBtn.onclick = () => {
-                if (!confirm(`Remove "${item}" from ${category}?`)) return;
-                usualShop[category] = usualShop[category].filter(i => i !== item);
-                saveUsualShop();
-                renderManageShop();
-            };
-            row.appendChild(removeBtn);
-            inner.appendChild(row);
-        });
-
-        details.appendChild(inner);
-        container.appendChild(details);
-    });
-}
-
-function manageAddItem() {
-    const itemInput = document.getElementById("manageAddItem");
-    const categorySelect = document.getElementById("manageAddCategory");
-    const newCategoryInput = document.getElementById("manageAddNewCategory");
-
-    const item = itemInput.value.trim();
-    if (!item) return;
-
-    let category = categorySelect.value;
-    if (category === "__new__") {
-        category = newCategoryInput.value.trim();
-        if (!category) return;
-        if (!usualShop[category]) usualShop[category] = [];
-    }
-
-    if (category && usualShop[category] && !usualShop[category].includes(item)) {
-        usualShop[category].push(item);
-        saveUsualShop();
-    }
-
-    itemInput.value = "";
-    newCategoryInput.value = "";
-    renderManageShop();
-}
-
-
-/* ============================================================
-   PREVIOUS LISTS
-   ============================================================ */
-
-function renderPreviousLists() {
-    const container = document.getElementById("previousListsContainer");
-    container.innerHTML = "";
-
-    document.getElementById("deleteAllButton").style.display = shoppingHistory.length ? "block" : "none";
-
-    if (!shoppingHistory.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty-message";
-        empty.textContent = "No previous shopping lists yet.";
-        container.appendChild(empty);
-        return;
-    }
-
-    shoppingHistory.forEach((tripEntry, index) => {
-        const card = document.createElement("div");
-        card.className = "trip-summary";
-        card.innerHTML = `
-            <div class="date">${tripEntry.date}</div>
-            <div class="meta">${tripEntry.items.length} item${tripEntry.items.length === 1 ? "" : "s"}${tripEntry.overallTime ? " &middot; " + tripEntry.overallTime : ""}</div>
-            <div>${tripEntry.items.join(", ")}</div>
-        `;
-        const removeBtn = document.createElement("button");
-        removeBtn.className = "remove-button";
-        removeBtn.style.marginTop = "10px";
-        removeBtn.textContent = "REMOVE THIS LIST";
-        removeBtn.onclick = () => {
-            if (!confirm("Delete this previous shopping list? This cannot be undone.")) return;
-            shoppingHistory.splice(index, 1);
-            saveHistory();
-            renderPreviousLists();
-        };
-        card.appendChild(removeBtn);
-        container.appendChild(card);
-    });
-}
-
-function deleteAllHistory() {
-    if (!confirm("Delete ALL previous shopping lists? This cannot be undone.")) return;
-    shoppingHistory = [];
-    saveHistory();
-    renderPreviousLists();
-}
-
-function exportHistoryCsv() {
-    if (!shoppingHistory.length) { alert("There are no previous shopping lists to export."); return; }
-
-    const lines = ["Date,Items,Item Count,Duration"];
-    shoppingHistory.forEach(tripEntry => {
-        const date = tripEntry.date.replace(/"/g, '""');
-        const items = tripEntry.items.join(", ").replace(/"/g, '""');
-        const duration = (tripEntry.overallTime || "").replace(/"/g, '""');
-        lines.push(`"${date}","${items}",${tripEntry.items.length},"${duration}"`);
-    });
-
-    const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "going_shopping_history.csv";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-}
-
-
-/* ============================================================
-   STARTUP
-   ============================================================ */
-
-renderHome();
+function startTrip(){if(!data.today.length||data.trip)return;data.trip={items:data.today.slice(),checked:[],startedAt:new Date().toISOString(),stoppedAt:null};persist();renderHome()}
+function completeTrip(){const t=data.trip;const unchecked=t.items.length-t.checked.length;if(unchecked&&!confirm(`You still have ${unchecked} unticked item${unchecked===1?'':'s'}. Finish shopping anyway?`))return;const end=t.stoppedAt||new Date().toISOString();data.history.unshift({date:new Date().toLocaleDateString(undefined,{day:'2-digit',month:'long',year:'numeric'}),items:t.checked.slice(),startedAt:t.startedAt,stoppedAt:end,overallTime:duration(t.startedAt,end)});data.today=[];data.trip=null;persist();renderHome()}
+function duration(a,b){const ms=new Date(b)-new Date(a);if(!Number.isFinite(ms)||ms<0)return'';const sec=Math.floor(ms/1000),h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return h?`${h}h ${String(m).padStart(2,'0')}m`:m?`${m}m`:`${s}s`}
+function renderHistory(){const area=document.getElementById('historyItems');area.replaceChildren();document.getElementById('deleteHistoryButton').classList.toggle('hidden',!data.history.length);if(!data.history.length){area.append(el('div','empty','No previous shopping trips yet.'));return}data.history.forEach((entry,index)=>{const card=el('div','history-card');card.append(el('div','history-date',entry.date||'Shopping trip'));card.append(el('div','history-meta',`${entry.items.length} item${entry.items.length===1?'':'s'}${entry.overallTime?' · '+entry.overallTime:''}`));card.append(el('div','',entry.items.join(', ')));const rm=el('button','remove','REMOVE THIS LIST');rm.style.marginTop='12px';rm.onclick=()=>{if(!confirm('Delete this previous shopping list?'))return;data.history.splice(index,1);persist();renderHistory()};card.append(rm);area.append(card)})}
+function deleteHistory(){if(!confirm('Delete all previous shopping history? This cannot be undone.'))return;data.history=[];persist();renderHistory()}
+function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
+function exportCsv(){if(!data.history.length){alert('There is no shopping history to export yet.');return}const rows=[['Date','Items','Item Count','Duration'],...data.history.map(x=>[x.date,x.items.join(', '),x.items.length,x.overallTime||''])];const csv='\uFEFF'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),'going_shopping_history.csv')}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob);const a=el('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function downloadBackup(){const payload={app:'Going Shopping',version:3,exportedAt:new Date().toISOString(),data};downloadBlob(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),'going_shopping_backup.json')}
+function restoreBackup(){const file=document.getElementById('backupFile').files[0];if(!file){alert('Please choose a backup file first.');return}const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);const raw=parsed.data||parsed;if(!raw||!Array.isArray(raw.usual)||!Array.isArray(raw.today)||!Array.isArray(raw.history))throw new Error('Invalid backup');const restored=normalize(raw);if(!confirm('This will replace the shopping data currently on this device. Continue?'))return;data=restored;persist();alert('Backup restored.');showScreen('home')}catch(e){alert('Sorry, that file does not look like a valid Going Shopping backup.')}};reader.readAsText(file)}
+let recognition=null,listening=false;
+function setVoiceStatus(message){document.getElementById('voiceStatus').textContent=message}
+function toggleVoice(){if(listening){recognition?.stop();return}const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Speech){setVoiceStatus('Voice input is not available in this browser. You can type your items instead.');return}recognition=new Speech();recognition.lang='en-GB';recognition.continuous=false;recognition.interimResults=false;recognition.maxAlternatives=3;recognition.onstart=()=>{listening=true;document.getElementById('micButton').textContent='⏹️';setVoiceStatus('Listening… speak clearly, then pause.')};recognition.onerror=e=>{setVoiceStatus(e.error==='not-allowed'?'Microphone permission was not allowed.':`Voice input stopped (${e.error}). You can type instead.`)};recognition.onend=()=>{listening=false;document.getElementById('micButton').textContent='🎤'};recognition.onresult=e=>{const result=e.results[0];const transcript=result[0].transcript.trim();const phrases=splitTranscript(transcript);if(!phrases.length){setVoiceStatus('I did not catch an item. Please try again.');return}let added=0;phrases.forEach(item=>{if(!data.today.some(x=>x.toLowerCase()===item.toLowerCase())){data.today.push(item);added++}});persist();renderHome();setVoiceStatus(`Heard: “${transcript}” · Added ${added} item${added===1?'':'s'}. Check the list is correct.`)};try{recognition.start()}catch(e){setVoiceStatus('Voice input could not start. Please try again or type your item.')}}
+// Split only on clear spoken separators. Deliberately do NOT split on “and”
+// because that breaks product names such as “macaroni and cheese”.
+function splitTranscript(text){return text.split(/[,;\n]+|\b(?:also|plus)\b/ig).map(x=>x.trim().replace(/^[.\s]+|[.\s]+$/g,'')).filter(Boolean)}
+renderHome();persist();
 </script>
-
 </body>
 </html>
